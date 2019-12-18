@@ -1,1 +1,5 @@
 source venv/bin/activate
+export GOOGLE_CLOUD_PROJECT=gumo-sample
+export SERVER_PORT=5000
+export ADMIN_PORT=5001
+export DATASTORE_EMULATOR_HOST=127.0.0.1:8081

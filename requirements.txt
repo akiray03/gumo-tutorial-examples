@@ -1,2 +1,5 @@
 Flask==1.1.1
 gumo-dev-server
+gumo-core
+gumo-datastore
+dataclass-type-validator
