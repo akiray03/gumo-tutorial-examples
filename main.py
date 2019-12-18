@@ -1,6 +1,11 @@
 import flask
 import os
 
+from gumo.core.injector import injector
+from todo.bind import bind_todo
+
+
+injector.binder.install(bind_todo)
 
 app = flask.Flask(__name__)
 
