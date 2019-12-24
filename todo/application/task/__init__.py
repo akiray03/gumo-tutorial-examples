@@ -25,3 +25,21 @@ class TaskCreateService:
         self.task_repository.save(task=task)
 
         return task
+
+
+class TaskUpdateService:
+    @inject
+    def __init__(self, task_repository: TaskRepository):
+        self.task_repository = task_repository
+
+    def execute(self, key: TaskKey, finished: bool) -> Task:
+        task = self.task_repository.fetch(key=key)
+
+        if finished:
+            modified_task = task.to_finished_now()
+        else:
+            modified_task = task.with_finished_at(finished_at=None)
+
+        self.task_repository.save(task=modified_task)
+
+        return modified_task

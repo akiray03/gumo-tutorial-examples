@@ -72,3 +72,18 @@ class Task:
     @property
     def is_finished(self) -> bool:
         return self.finished_at is not None
+
+    def _clone(self, **changes) -> "Task":
+        return dataclasses.replace(
+            self,
+            updated_at=datetime.datetime.utcnow().astimezone(tz=datetime.timezone.utc),
+            **changes
+        )
+
+    def with_finished_at(self, finished_at: Optional[datetime.datetime]) -> "Task":
+        return self._clone(finished_at=finished_at)
+
+    def to_finished_now(self) -> "Task":
+        return self.with_finished_at(
+            finished_at=datetime.datetime.utcnow().astimezone(tz=datetime.timezone.utc)
+        )

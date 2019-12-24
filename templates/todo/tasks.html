@@ -10,9 +10,19 @@
 <ul>
     {% for task in tasks %}
         <li>
+            {% if task.is_finished %}✔{% endif %}
             {{ task.name.value }} ({{ task.created_at.isoformat() }})
             <form action="/tasks/{{ task.key.task_id }}/delete" method="post">
                 <input type="submit" value="delete">
+            </form>
+            <form action="/tasks/{{ task.key.task_id }}/update" method="post">
+                {% if task.is_finished %}
+                    <input type="hidden" name="finished" value="false">
+                    <input type="submit" value="undone">
+                {% else %}
+                    <input type="hidden" name="finished" value="true">
+                    <input type="submit" value="done">
+                {% endif %}
             </form>
         </li>
     {% endfor %}
