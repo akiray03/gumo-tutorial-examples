@@ -1,5 +1,6 @@
 import dataclasses
 import datetime
+from typing import Optional
 
 from gumo.core import EntityKey
 from gumo.core import NoneKey
@@ -61,7 +62,13 @@ class TaskName:
 class Task:
     key: TaskKey
     name: TaskName
+    finished_at: Optional[datetime.datetime]
     created_at: datetime.datetime
+    updated_at: datetime.datetime
 
     def __post_init__(self):
         dataclass_type_validator(self)
+
+    @property
+    def is_finished(self) -> bool:
+        return self.finished_at is not None

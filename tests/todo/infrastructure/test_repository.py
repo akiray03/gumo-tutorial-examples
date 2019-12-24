@@ -17,7 +17,9 @@ class TestTaskRepository(DatastoreRepositoryMixinForTest):
         task = Task(
             key=TaskKey.build_by_id(task_id=123),
             name=TaskName("Task Name"),
+            finished_at=None,
             created_at=datetime.datetime(2019, 12, 1, tzinfo=datetime.timezone.utc),
+            updated_at=datetime.datetime(2019, 12, 1, tzinfo=datetime.timezone.utc),
         )
         self.repository.save(task=task)
         assert self.count_entities() == 1
@@ -28,7 +30,9 @@ class TestTaskRepository(DatastoreRepositoryMixinForTest):
         task = Task(
             key=TaskKey.build_by_id(task_id=123),
             name=TaskName("Task Name"),
+            finished_at=None,
             created_at=datetime.datetime(2019, 12, 1, tzinfo=datetime.timezone.utc),
+            updated_at=datetime.datetime(2019, 12, 1, tzinfo=datetime.timezone.utc),
         )
         self.repository.save(task=task)
         fetched_task = self.repository.fetch(key=task.key)

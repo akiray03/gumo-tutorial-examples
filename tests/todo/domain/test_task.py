@@ -26,7 +26,11 @@ class TestTask:
         task = Task(
             key=TaskKey.build_by_id(task_id=1),
             name=TaskName("Task Name"),
+            finished_at=None,
             created_at=datetime.datetime(
+                2019, 12, 1, 0, 0, 0, tzinfo=datetime.timezone.utc
+            ),
+            updated_at=datetime.datetime(
                 2019, 12, 1, 0, 0, 0, tzinfo=datetime.timezone.utc
             ),
         )
@@ -37,7 +41,40 @@ class TestTask:
             Task(
                 key=TaskKey.build_by_id(task_id=1),
                 name="task name",
+                finished_at=None,
                 created_at=datetime.datetime(
                     2019, 12, 1, 0, 0, 0, tzinfo=datetime.timezone.utc
                 ),
+                updated_at=datetime.datetime(
+                    2019, 12, 1, 0, 0, 0, tzinfo=datetime.timezone.utc
+                ),
             )
+
+    def test_finished_property(self):
+        task = Task(
+            key=TaskKey.build_by_id(task_id=1),
+            name=TaskName("Task Name"),
+            finished_at=None,
+            created_at=datetime.datetime(
+                2019, 12, 1, 0, 0, 0, tzinfo=datetime.timezone.utc
+            ),
+            updated_at=datetime.datetime(
+                2019, 12, 1, 0, 0, 0, tzinfo=datetime.timezone.utc
+            ),
+        )
+        assert not task.is_finished
+
+        finished_task = Task(
+            key=TaskKey.build_by_id(task_id=1),
+            name=TaskName("Task Name"),
+            finished_at=datetime.datetime(
+                2019, 12, 2, 0, 0, 0, tzinfo=datetime.timezone.utc
+            ),
+            created_at=datetime.datetime(
+                2019, 12, 1, 0, 0, 0, tzinfo=datetime.timezone.utc
+            ),
+            updated_at=datetime.datetime(
+                2019, 12, 1, 0, 0, 0, tzinfo=datetime.timezone.utc
+            ),
+        )
+        assert finished_task.is_finished

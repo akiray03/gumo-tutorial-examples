@@ -1,5 +1,6 @@
 import datetime
 import dataclasses
+from typing import Optional
 
 from gumo.datastore.infrastructure import DataModel
 from gumo.datastore.infrastructure import DatastoreEntity
@@ -12,7 +13,9 @@ class TaskDataModel(DataModel):
 
     key: DatastoreKey
     name: str
+    finished_at: Optional[datetime.datetime]
     created_at: datetime.datetime
+    updated_at: datetime.datetime
 
     def to_datastore_entity(self) -> DatastoreEntity:
         doc = DatastoreEntity(
@@ -21,7 +24,9 @@ class TaskDataModel(DataModel):
         doc.update(
             {
                 "name": self.name,
+                "finished_at": self.finished_at,
                 "created_at": self.created_at,
+                "updated_at": self.updated_at,
             }
         )
         return doc
@@ -31,5 +36,7 @@ class TaskDataModel(DataModel):
         return cls(
             key=doc.key,
             name=doc["name"],
+            finished_at=cls.convert_optional_datetime(doc.get("finished_at")),
             created_at=cls.convert_datetime(doc["created_at"]),
+            updated_at=cls.convert_datetime(doc.get("updated_at", doc["created_at"])),
         )

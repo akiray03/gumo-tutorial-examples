@@ -12,7 +12,9 @@ class DatastoreTaskRepository(DatastoreRepositoryMixin, TaskRepository):
         model = TaskDataModel(
             key=self.to_datastore_key(entity_key=task.key),
             name=task.name.value,
+            finished_at=task.finished_at,
             created_at=task.created_at,
+            updated_at=task.updated_at,
         )
         doc = model.to_datastore_entity()
         self.datastore_client.put(doc)
@@ -30,7 +32,9 @@ class DatastoreTaskRepository(DatastoreRepositoryMixin, TaskRepository):
         return Task(
             key=TaskKey.build_from_key(key=self.to_entity_key(datastore_key=model.key)),
             name=TaskName(model.name),
+            finished_at=model.finished_at,
             created_at=model.created_at,
+            updated_at=model.updated_at,
         )
 
     def fetch_list(self) -> typing.List[Task]:

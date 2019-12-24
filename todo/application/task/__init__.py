@@ -14,10 +14,13 @@ class TaskCreateService:
         self.task_repository = task_repository
 
     def execute(self, task_name: str) -> Task:
+        now = datetime.datetime.utcnow().astimezone(tz=datetime.timezone.utc)
         task = Task(
             key=TaskKey.build_for_new(),
             name=TaskName(task_name),
-            created_at=datetime.datetime.utcnow().astimezone(tz=datetime.timezone.utc),
+            finished_at=None,
+            created_at=now,
+            updated_at=now,
         )
         self.task_repository.save(task=task)
 
