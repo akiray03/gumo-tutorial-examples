@@ -17,3 +17,6 @@ class TaskRepository:
 
     def fetch_list(self) -> typing.List[Task]:
         raise NotImplementedError()
+
+    def delete(self, key: TaskKey):
+        raise NotImplementedError()

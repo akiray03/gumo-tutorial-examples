@@ -40,3 +40,7 @@ class DatastoreTaskRepository(DatastoreRepositoryMixin, TaskRepository):
             for doc in query.fetch()
         ]
         return tasks
+
+    def delete(self, key: TaskKey):
+        datastore_key = self.to_datastore_key(entity_key=key)
+        self.datastore_client.delete(datastore_key)

@@ -17,6 +17,8 @@ class TaskKey(EntityKey):
 
     @classmethod
     def build_by_id(cls, task_id: int) -> "TaskKey":
+        if isinstance(task_id, str) and task_id.isdigit():
+            task_id = int(task_id)
         return cls(_kind=cls.KIND, _name=task_id, _parent=NoneKey.get_instance(),)
 
     @classmethod

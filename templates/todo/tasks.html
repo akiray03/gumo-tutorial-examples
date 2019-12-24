@@ -9,7 +9,12 @@
 <h2>Tasks</h2>
 <ul>
     {% for task in tasks %}
-        <li>{{ task.name.value }} ({{ task.created_at.isoformat() }})</li>
+        <li>
+            {{ task.name.value }} ({{ task.created_at.isoformat() }})
+            <form action="/tasks/{{ task.key.task_id }}/delete" method="post">
+                <input type="submit" value="delete">
+            </form>
+        </li>
     {% endfor %}
 </ul>
 
