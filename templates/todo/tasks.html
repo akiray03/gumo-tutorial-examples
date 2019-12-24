@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+<head>
+  <title>Gumo Example</title>
+</head>
+<body>
+<h1>Gumo Example</h1>
+
+<h2>Tasks</h2>
+<ul>
+    {% for task in tasks %}
+        <li>{{ task.name.value }} ({{ task.created_at.isoformat() }})</li>
+    {% endfor %}
+</ul>
+
+<form action="/tasks" method="post">
+    <input type="text" name="task_name">
+    <input type="submit" value="create">
+</form>
+
+</body>
+</html>
