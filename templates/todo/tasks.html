@@ -12,6 +12,14 @@
         <li>
             {% if task.is_finished %}✔{% endif %}
             {{ task.name.value }} ({{ task.created_at.isoformat() }})
+            <form action="/tasks/{{ task.key.task_id }}/update" method="post">
+                <select>
+                    <option>-</option>
+                    <option>プロジェクト1</option>
+                    <option>プロジェクト2</option>
+                </select>
+                <input type="submit" value="save">
+            </form>
             <form action="/tasks/{{ task.key.task_id }}/delete" method="post">
                 <input type="submit" value="delete">
             </form>
